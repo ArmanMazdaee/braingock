@@ -15,6 +15,10 @@ import (
 
 var arraySize = flag.Uint("array-size", 0, "set the state array to a fixed size")
 var leftExpandable = flag.Bool("left-expandable", false, "indecate if state can be expanded from the left")
+var inputPath = flag.String("input", "-", "file to be used for programs inputs")
+var outputPath = flag.String("output", "-", "file to be used for programs outputs")
+var errorPath = flag.String("error", "-", "file to be used for programs errors")
+var cellSize = flag.Uint("cell-size", 8, "the word size of each state call. should be one of: 8, 16, 32, 64")
 
 func createState[T state.StateType]() state.State[T] {
 	if *arraySize == 0 && *leftExpandable {
@@ -26,10 +30,6 @@ func createState[T state.StateType]() state.State[T] {
 	}
 	return state.NewDynamicSize[T](*leftExpandable)
 }
-
-var inputPath = flag.String("input", "-", "file to be used for programs inputs")
-var outputPath = flag.String("output", "-", "file to be used for programs outputs")
-var errorPath = flag.String("error", "-", "file to be used for programs errors")
 
 func createCommands[T state.StateType]() map[rune]commands.Command[T] {
 	cmds := map[rune]commands.Command[T]{
@@ -104,8 +104,6 @@ func run[T state.StateType]() {
 		}
 	}
 }
-
-var cellSize = flag.Uint("cell-size", 8, "the word size of each state call. should be one of: 8, 16, 32, 64")
 
 func main() {
 	flag.Parse()

@@ -1,6 +1,5 @@
 build:
-	@go build ./braingockcli
-	@mv braingockcli/braingockcli braingock
+	@go build -o ./braingock ./braingockcli
 
 test:
 	@go test ./...
